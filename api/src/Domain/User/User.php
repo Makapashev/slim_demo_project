@@ -15,7 +15,7 @@ class User implements JsonSerializable
     /**
      * @var string
      */
-    private $username;
+    private $phoneNumber;
 
     /**
      * @var string

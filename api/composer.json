@@ -30,7 +30,9 @@
         "slim/slim": "^4.7"
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
         "jangregor/phpstan-prophecy": "^0.8.1",
+        "overtrue/phplint": "^2.3",
         "phpstan/extension-installer": "^1.0.5",
         "phpstan/phpstan": "^0.12.58",
         "phpunit/phpunit": "^8.5"
@@ -52,5 +54,21 @@
     "scripts": {
         "start": "php -S localhost:8080 -t public",
         "test": "phpunit"
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "php-cs-fixer fix ." // fix style
+            ],
+            // verify commit message. ex: ABC-123: Fix everything
+            "commit-msg": "running hooks",
+            "pre-push": [
+                "php-cs-fixer fix --dry-run ." // check style
+                "phpunit"
+            ],
+            "post-merge": "composer install"
+            "...": "..."
+        }
     }
 }
