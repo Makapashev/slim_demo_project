@@ -7,23 +7,25 @@ services:
             dockerfile: nginx/Dockerfile
         depends_on:
             - api-fpm
-#            - api-cli
-        container_name: demo_bank_nginx
+            - api-cli
+        container_name: demo_bank1_nginx
         ports:
             - 80:80
         volumes:
-            - ./api:/var/www/demo_bank
+            - ./api:/var/www/demo_bank1
     api-fpm:
         build:
             context: api/docker/dev
             dockerfile: php-fpm/Dockerfile
-        container_name: demo_bank_fpm
+        container_name: demo_bank1_fpm
         volumes:
-            - ./api:/var/www/demo_bank
-#    api-cli:
-#        build:
-#            context: api/docker/dev
-#            dockerfile: php-cli/Dockerfile
-#        container_name: demo_bank_cli
-#        volumes:
-#            - ./api:/var/www/demo_bank
+            - ./api:/var/www/demo_bank1
+    api-cli:
+        build:
+            context: api/docker/dev
+            dockerfile: php-cli/Dockerfile
+        container_name: demo_bank1_cli
+        volumes:
+            - ./api:/var/www/demo_bank1
+        tty: true
+        stdin_open: true

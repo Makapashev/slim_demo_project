@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b35080815d66efdb6c46cede3200e040",
+    "content-hash": "6a310131a4c9f90bc8acf2715e005692",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -1026,75 +1026,6 @@
     ],
     "packages-dev": [
         {
-            "name": "brainmaestro/composer-git-hooks",
-            "version": "v2.8.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BrainMaestro/composer-git-hooks.git",
-                "reference": "97888dd34e900931117747cd34a42fdfcf271142"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/BrainMaestro/composer-git-hooks/zipball/97888dd34e900931117747cd34a42fdfcf271142",
-                "reference": "97888dd34e900931117747cd34a42fdfcf271142",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || >=7.0",
-                "symfony/console": "^3.2 || ^4.0 || ^5.0"
-            },
-            "require-dev": {
-                "ext-json": "*",
-                "friendsofphp/php-cs-fixer": "^2.9",
-                "phpunit/phpunit": "^5.7 || ^7.0"
-            },
-            "bin": [
-                "cghooks"
-            ],
-            "type": "library",
-            "extra": {
-                "hooks": {
-                    "pre-commit": "composer check-style",
-                    "pre-push": [
-                        "composer test",
-                        "appver=$(grep -o -E '\\d.\\d.\\d' cghooks)",
-                        "tag=$(git describe --tags --abbrev=0)",
-                        "if [ \"$tag\" != \"v$appver\" ]; then",
-                        "echo \"The most recent tag $tag does not match the application version $appver\\n\"",
-                        "tag=${tag#v}",
-                        "sed -i -E \"s/$appver/$tag/\" cghooks",
-                        "exit 1",
-                        "fi"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "BrainMaestro\\GitHooks\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ezinwa Okpoechi",
-                    "email": "brainmaestro@outlook.com"
-                }
-            ],
-            "description": "Easily manage git hooks in your composer config",
-            "keywords": [
-                "HOOK",
-                "composer",
-                "git"
-            ],
-            "time": "2019-12-09T09:49:20+00:00"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
             "source": {
@@ -1158,71 +1089,6 @@
                 }
             ],
             "time": "2020-11-10T18:47:58+00:00"
-        },
-        {
-            "name": "jangregor/phpstan-prophecy",
-            "version": "0.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Jan0707/phpstan-prophecy.git",
-                "reference": "f01ca476840c370bbf9c224aed25fca60eecca9d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Jan0707/phpstan-prophecy/zipball/f01ca476840c370bbf9c224aed25fca60eecca9d",
-                "reference": "f01ca476840c370bbf9c224aed25fca60eecca9d",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^0.12.6"
-            },
-            "conflict": {
-                "phpspec/prophecy": "<1.7.0,>=2.0.0",
-                "phpunit/phpunit": "<6.0.0,>=10.0.0"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.1.1",
-                "ergebnis/license": "^1.0.0",
-                "ergebnis/php-cs-fixer-config": "~2.2.0",
-                "phpspec/prophecy": "^1.7.0",
-                "phpunit/phpunit": "^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0"
-            },
-            "type": "phpstan-extension",
-            "extra": {
-                "phpstan": {
-                    "includes": [
-                        "extension.neon"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JanGregor\\Prophecy\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Gregor Emge-Triebel",
-                    "email": "jan@jangregor.me"
-                }
-            ],
-            "description": "Provides a phpstan/phpstan extension for phpspec/prophecy",
-            "funding": [
-                {
-                    "url": "https://www.buymeacoffee.com/localheinz",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/localheinz",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-10-24T15:04:14+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -1691,103 +1557,6 @@
                 "stub"
             ],
             "time": "2020-12-19T10:15:11+00:00"
-        },
-        {
-            "name": "phpstan/extension-installer",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/extension-installer.git",
-                "reference": "66c7adc9dfa38b6b5838a9fb728b68a7d8348051"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/extension-installer/zipball/66c7adc9dfa38b6b5838a9fb728b68a7d8348051",
-                "reference": "66c7adc9dfa38b6b5838a9fb728b68a7d8348051",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1 || ^2.0",
-                "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": ">=0.11.6"
-            },
-            "require-dev": {
-                "composer/composer": "^1.8",
-                "phing/phing": "^2.16.3",
-                "php-parallel-lint/php-parallel-lint": "^1.2.0",
-                "phpstan/phpstan-strict-rules": "^0.11 || ^0.12"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "PHPStan\\ExtensionInstaller\\Plugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "PHPStan\\ExtensionInstaller\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Composer plugin for automatic installation of PHPStan extensions",
-            "time": "2020-12-13T13:06:13+00:00"
-        },
-        {
-            "name": "phpstan/phpstan",
-            "version": "0.12.64",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "23eb1cb7ae125f45f1d0e48051bcf67a9a9b08aa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/23eb1cb7ae125f45f1d0e48051bcf67a9a9b08aa",
-                "reference": "23eb1cb7ae125f45f1d0e48051bcf67a9a9b08aa",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1|^8.0"
-            },
-            "conflict": {
-                "phpstan/phpstan-shim": "*"
-            },
-            "bin": [
-                "phpstan",
-                "phpstan.phar"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.12-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PHPStan - PHP Static Analysis Tool",
-            "funding": [
-                {
-                    "url": "https://github.com/ondrejmirtes",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/phpstan",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-12-21T11:59:02+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3833,8 +3602,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2",
-        "ext-json": "*"
+        "ext-json": "*",
+        "php": "7.4.*"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"

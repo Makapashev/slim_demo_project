@@ -15,3 +15,5 @@ docker-build:
 	docker-compose build --build-arg USER_ID=1000 --build-arg GROUP_ID=1000
 docker-logs:
 	docker-compose logs -f
+test:
+	docker container exec -it demo_bank1_cli ./vendor/bin/phpunit
