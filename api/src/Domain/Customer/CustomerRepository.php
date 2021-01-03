@@ -1,25 +1,32 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Customer;
 
 interface CustomerRepository
 {
+    /**
+     * @param int $id
+     * @return Customer
+     * */
     public function getActiveCustomerById(int $id): Customer;
 
     /**
      * @param PhoneNumber $phoneNumber
-     * @return bool
      * @throws CustomerAlreadyExistsException
      */
-    public function doesCustomerWithPhoneNumberExist(PhoneNumber $phoneNumber): bool;
+    public function doesCustomerWithPhoneNumberExist(PhoneNumber $phoneNumber);
 
     /**
      * @param Email $email
-     * @return bool
      * @throws CustomerAlreadyExistsException
      */
-    public function doesCustomerWithEmailExist(Email $email): bool;
+    public function doesCustomerWithEmailExist(Email $email);
 
-    public function add(Customer $customer);
+    /**
+     * @param Customer $customer
+     * @return void
+     * */
+    public function add(Customer $customer): void;
 }

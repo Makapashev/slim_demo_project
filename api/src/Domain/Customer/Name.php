@@ -21,6 +21,7 @@ final class Name implements ObjectValueInterface
     {
         $this->value = trim($value);
         Assert::notEmpty($this->value, 'Значение не может быть пустым');
+        Assert::lengthBetween($this->value, 2, 50, 'Количество символов должно составлять от 2 до 50');
         $this->firstCharToUpperCase();
     }
 

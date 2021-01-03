@@ -6,17 +6,52 @@ namespace App\Domain\Customer;
 use App\Domain\Account\Account;
 use ArrayObject;
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
+/**
+ * @ORM\Entity(readOnly=true)
+ * @ORM\Table(name="customers")
+ * */
 final class Customer implements JsonSerializable
 {
-    private ?int $id;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private int $id;
+
+    /**
+     * @ORM\Column(type="customer_name", length=50)
+     */
     private Name $firstName;
+
+    /**
+     * @ORM\Column(type="customer_name", length=50)
+     */
     private Name $lastName;
+
+    /**
+     * @ORM\Column(type="customer_phone_number", length=11)
+     */
     private PhoneNumber $phoneNumber;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private string $passwordHash;
+
+    /**
+     * @ORM\Column(type="customer_email")
+     */
     private Email $email;
+
     private ArrayObject $accounts;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private Status $status;
     private DateTime $createdAt;
     private DateTime $updatedAt;

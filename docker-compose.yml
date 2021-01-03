@@ -20,6 +20,8 @@ services:
         container_name: demo_bank1_fpm
         volumes:
             - ./api:/var/www/demo_bank1
+        depends_on:
+            - maria-db
     api-cli:
         build:
             context: api/docker/dev
@@ -29,3 +31,15 @@ services:
             - ./api:/var/www/demo_bank1
         tty: true
         stdin_open: true
+        depends_on:
+            - maria-db
+    maria-db:
+        image: mariadb:10.4.17-focal
+        restart: always
+        volumes:
+            - ./api/docker/mariadb:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        container_name: ${DB_HOST}

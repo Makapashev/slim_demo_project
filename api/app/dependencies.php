@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use DI\ContainerBuilder;
@@ -8,21 +9,25 @@ use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
-return function (ContainerBuilder $containerBuilder) {
-    $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
-            $settings = $c->get('settings');
+$doctrine = require __DIR__ . '/doctrine.php';
 
-            $loggerSettings = $settings['logger'];
-            $logger = new Logger($loggerSettings['name']);
+$dependencies = [
+    LoggerInterface::class => function (ContainerInterface $c) {
+        $settings = $c->get('settings');
 
-            $processor = new UidProcessor();
-            $logger->pushProcessor($processor);
+        $loggerSettings = $settings['logger'];
+        $logger = new Logger($loggerSettings['name']);
 
-            $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
-            $logger->pushHandler($handler);
+        $processor = new UidProcessor();
+        $logger->pushProcessor($processor);
 
-            return $logger;
-        },
-    ]);
-};
+        $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
+        $logger->pushHandler($handler);
+
+        return $logger;
+    },
+    \Doctrine\ORM\EntityManagerInterface::class => $doctrine,
+];
+
+return fn(ContainerBuilder $containerBuilder) => $containerBuilder
+    ->addDefinitions($dependencies);
