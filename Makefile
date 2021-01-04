@@ -17,3 +17,5 @@ docker-logs:
 	docker-compose logs -f
 test:
 	docker container exec -it demo_bank1_cli ./vendor/bin/phpunit
+validate-entities:
+	docker container exec -it demo_bank1_cli php slim orm:validate-schema

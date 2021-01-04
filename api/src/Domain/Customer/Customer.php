@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Domain\Customer;
 
 use App\Domain\Account\Account;
-use ArrayObject;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -47,13 +47,26 @@ final class Customer implements JsonSerializable
      */
     private Email $email;
 
-    private ArrayObject $accounts;
+    /**
+     * @ORM\OneToMany(targetEntity="Account", mappedBy="customer")
+     */
+    private ArrayCollection $accounts;
 
     /**
      * @ORM\Column(type="string")
      */
     private Status $status;
+
+    /**
+     * @ORM\Column(type="time_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     *
+     * */
     private DateTime $createdAt;
+
+    /**
+     * @ORM\Column(type="time_immutable", options={"default":
+     *     "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"})
+     * */
     private DateTime $updatedAt;
 
     public function __construct(Name $firstName,
@@ -67,7 +80,7 @@ final class Customer implements JsonSerializable
         $this->phoneNumber = $phoneNumber;
         $this->passwordHash = $hash;
         $this->email = $email;
-        $this->accounts = new ArrayObject();
+        $this->accounts = new ArrayCollection();
         $this->status = Status::active();
     }
 
@@ -109,12 +122,12 @@ final class Customer implements JsonSerializable
     public function createNewAccount(): void
     {
         $account = new Account();
-        $this->accounts->append($account);
+        $this->accounts->add($account);
     }
 
     public function getAccounts(): array
     {
-        return $this->accounts->getArrayCopy();
+        return $this->accounts->getValues();
     }
 
     public function jsonSerialize(): array
@@ -126,5 +139,13 @@ final class Customer implements JsonSerializable
             'phoneNumber' => $this->phoneNumber,
             'email' => $this->email,
         ];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

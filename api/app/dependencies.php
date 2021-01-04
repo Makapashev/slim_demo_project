@@ -10,6 +10,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 $doctrine = require __DIR__ . '/doctrine.php';
+$commands = require __DIR__ . '/console.php';
 
 $dependencies = [
     LoggerInterface::class => function (ContainerInterface $c) {
@@ -27,6 +28,7 @@ $dependencies = [
         return $logger;
     },
     \Doctrine\ORM\EntityManagerInterface::class => $doctrine,
+    'commands' => $commands
 ];
 
 return fn(ContainerBuilder $containerBuilder) => $containerBuilder

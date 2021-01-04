@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Domain\Account;
 
+use App\Domain\Customer\Customer;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,12 @@ final class Account
     private int $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="accounts")
+     * @ORM\JoinColumn(name="id_customer", referencedColumnName="id")
+     * */
+    private Customer $customer;
+
+    /**
      * @ORM\Column(type="account_balance")
      */
     private Balance $balance;
@@ -27,7 +35,7 @@ final class Account
      * @ORM\Column(type="account_status")
      */
     private Status $status;
-    
+
     private DateTime $createdAt;
     private DateTime $updatedAt;
 
