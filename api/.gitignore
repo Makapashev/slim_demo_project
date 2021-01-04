@@ -6,3 +6,4 @@ vendor/
 !/logs/README.md
 .phpunit.result.cache
 .env
+docker/mariadb
