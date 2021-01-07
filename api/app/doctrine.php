@@ -17,8 +17,9 @@ return [
     EntityManagerInterface::class => function (ContainerInterface $container): EntityManagerInterface {
         $settings = $container->get('settings')['doctrine'];
 
-        $cache = (getenv('IS_DEV') ? null : $settings['cache_dir']) ? new FilesystemCache
-        ($settings['cache_dir']) : new ArrayCache();
+        $cache = (bool)(getenv('IS_DEV') ? null : $settings['cache_dir'])
+            ? new FilesystemCache
+            ($settings['cache_dir']) : new ArrayCache();
 
 
         $config = Setup::createAnnotationMetadataConfiguration(

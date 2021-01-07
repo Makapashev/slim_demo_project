@@ -22,3 +22,7 @@ dev-create-migrations:
 	docker container exec -it demo_bank1_cli php slim migrations:diff
 migrate:
 	docker container exec -it demo_bank1_cli php slim migrations:migrate --no-interaction
+composer-install:
+	docker container exec -it demo_bank1_cli composer install
+php-cli:
+	docker container exec -it demo_bank1_cli sh
