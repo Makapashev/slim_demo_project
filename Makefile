@@ -1,10 +1,9 @@
 init: down-clear-dev docker-pull docker-build up-dev docker-logs
-
 restart: down-dev up-dev
+create-migrations: validate-entities dev-create-migrations
 
 up-dev:
 	docker-compose up -d
-
 down-dev:
 	docker-compose down --remove-orphans
 down-clear-dev:
@@ -18,4 +17,8 @@ docker-logs:
 test:
 	docker container exec -it demo_bank1_cli ./vendor/bin/phpunit
 validate-entities:
-	docker container exec -it demo_bank1_cli php slim orm:validate-schema
+	docker container exec -it demo_bank1_cli php slim orm:validate-schema --skip-sync
+dev-create-migrations:
+	docker container exec -it demo_bank1_cli php slim migrations:diff
+migrate:
+	docker container exec -it demo_bank1_cli php slim migrations:migrate --no-interaction

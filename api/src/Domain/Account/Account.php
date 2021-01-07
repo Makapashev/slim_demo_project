@@ -21,22 +21,36 @@ final class Account
     private int $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="accounts")
-     * @ORM\JoinColumn(name="id_customer", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Domain\Customer\Customer", inversedBy="accounts")
+     * @ORM\JoinColumn(name="id_customer", referencedColumnName="id",
+     *     nullable=false)
      * */
     private Customer $customer;
 
     /**
-     * @ORM\Column(type="account_balance")
+     * @ORM\Column(type="account_balance", nullable=false)
      */
     private Balance $balance;
 
     /**
-     * @ORM\Column(type="account_status")
+     * @ORM\Column(type="account_status", nullable=false)
      */
     private Status $status;
 
+    /**
+     * @ORM\Column(type="datetime",
+     *     nullable=false,
+     *     columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+     * )
+     * */
     private DateTime $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime",
+     *     nullable=false,
+     *     columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+     * )
+     * */
     private DateTime $updatedAt;
 
     public function __construct()

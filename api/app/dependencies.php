@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 
 $doctrine = require __DIR__ . '/doctrine.php';
 $commands = require __DIR__ . '/console.php';
+$migrations = require __DIR__ . '/migrations.php';
 
 $dependencies = [
     LoggerInterface::class => function (ContainerInterface $c) {
@@ -27,9 +28,10 @@ $dependencies = [
 
         return $logger;
     },
-    \Doctrine\ORM\EntityManagerInterface::class => $doctrine,
-    'commands' => $commands
 ];
 
 return fn(ContainerBuilder $containerBuilder) => $containerBuilder
-    ->addDefinitions($dependencies);
+    ->addDefinitions($dependencies)
+    ->addDefinitions($migrations)
+    ->addDefinitions($doctrine)
+    ->addDefinitions($commands);

@@ -15,8 +15,8 @@ services:
             - ./api:/var/www/demo_bank1
     api-fpm:
         build:
-            context: api/docker/dev
-            dockerfile: php-fpm/Dockerfile
+            context: ./
+            dockerfile: api/docker/dev/php-fpm/Dockerfile
         container_name: demo_bank1_fpm
         volumes:
             - ./api:/var/www/demo_bank1
@@ -24,8 +24,8 @@ services:
             - maria-db
     api-cli:
         build:
-            context: api/docker/dev
-            dockerfile: php-cli/Dockerfile
+            context: ./
+            dockerfile: api/docker/dev/php-cli/Dockerfile
         container_name: demo_bank1_cli
         volumes:
             - ./api:/var/www/demo_bank1

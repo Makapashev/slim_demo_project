@@ -48,24 +48,29 @@ final class Customer implements JsonSerializable
     private Email $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="Account", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="App\Domain\Account\Account",
+     *     mappedBy="customer")
      */
     private ArrayCollection $accounts;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=false)
      */
     private Status $status;
 
     /**
-     * @ORM\Column(type="time_immutable", options={"default": "CURRENT_TIMESTAMP"})
-     *
+     * @ORM\Column(type="datetime",
+     *     nullable=false,
+     *     columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+     * )
      * */
     private DateTime $createdAt;
 
     /**
-     * @ORM\Column(type="time_immutable", options={"default":
-     *     "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime",
+     *     nullable=false,
+     *     columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+     * )
      * */
     private DateTime $updatedAt;
 

@@ -9,6 +9,9 @@ use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 $application = new Application();
 $containerBuilder = new ContainerBuilder();
 

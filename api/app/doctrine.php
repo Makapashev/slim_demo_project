@@ -13,36 +13,42 @@ use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Doctrine\ORM\Tools\Setup;
 use Psr\Container\ContainerInterface;
 
-return function (ContainerInterface $container): EntityManagerInterface {
-    $settings = $container->get('settings')['doctrine'];
+return [
+    EntityManagerInterface::class => function (ContainerInterface $container): EntityManagerInterface {
+        $settings = $container->get('settings')['doctrine'];
 
-    $config = Setup::createAnnotationMetadataConfiguration(
-        $settings['metadata_dirs'],
-        $settings['dev_mode'],
-        $settings['proxy_dir'],
-        $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
-        false
-    );
+        $cache = (getenv('IS_DEV') ? null : $settings['cache_dir']) ? new FilesystemCache
+        ($settings['cache_dir']) : new ArrayCache();
 
-    $config->setNamingStrategy(new UnderscoreNamingStrategy());
 
-    foreach ($settings['types'] as $name => $class) {
-        if (!Type::hasType($name)) {
-            Type::addType($name, $class);
+        $config = Setup::createAnnotationMetadataConfiguration(
+            $settings['metadata_dirs'],
+            $settings['dev_mode'],
+            $settings['proxy_dir'],
+            $cache,
+            false
+        );
+
+        $config->setNamingStrategy(new UnderscoreNamingStrategy());
+
+        foreach ($settings['types'] as $name => $class) {
+            if (!Type::hasType($name)) {
+                Type::addType($name, $class);
+            }
         }
+
+        $eventManager = new EventManager();
+
+        foreach ($settings['subscribers'] as $name) {
+            /** @var EventSubscriber $subscriber */
+            $subscriber = $container->get($name);
+            $eventManager->addEventSubscriber($subscriber);
+        }
+
+        return EntityManager::create(
+            $settings['connection'],
+            $config,
+            $eventManager
+        );
     }
-
-    $eventManager = new EventManager();
-
-    foreach ($settings['subscribers'] as $name) {
-        /** @var EventSubscriber $subscriber */
-        $subscriber = $container->get($name);
-        $eventManager->addEventSubscriber($subscriber);
-    }
-
-    return EntityManager::create(
-        $settings['connection'],
-        $config,
-        $eventManager
-    );
-};
+];

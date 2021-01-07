@@ -2,16 +2,20 @@
 
 declare(strict_types=1);
 
-//use Doctrine\Migrations;
+use Doctrine\Migrations\Tools\Console\Command;
+use Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand;
 use Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand;
 
 return [
-    ValidateSchemaCommand::class,
-
-//                Migrations\Tools\Console\Command\ExecuteCommand::class,
-//                Migrations\Tools\Console\Command\MigrateCommand::class,
-//                Migrations\Tools\Console\Command\LatestCommand::class,
-//                Migrations\Tools\Console\Command\ListCommand::class,
-//                Migrations\Tools\Console\Command\StatusCommand::class,
-//                Migrations\Tools\Console\Command\UpToDateCommand::class,
+    'commands' => [
+        ValidateSchemaCommand::class,
+        //Doctrine Migrations
+        Command\ExecuteCommand::class,
+        Command\MigrateCommand::class,
+        Command\LatestCommand::class,
+        Command\ListCommand::class,
+        Command\StatusCommand::class,
+        Command\UpToDateCommand::class,
+        Command\DiffCommand::class,
+    ]
 ];
