@@ -6,6 +6,7 @@ namespace App\Domain\Customer;
 use App\Domain\Account\Account;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -33,7 +34,7 @@ final class Customer implements JsonSerializable
     private Name $lastName;
 
     /**
-     * @ORM\Column(type="customer_phone_number", length=11)
+     * @ORM\Column(type="customer_phone_number", length=11, unique=true)
      */
     private PhoneNumber $phoneNumber;
 
@@ -43,18 +44,18 @@ final class Customer implements JsonSerializable
     private string $passwordHash;
 
     /**
-     * @ORM\Column(type="customer_email")
+     * @ORM\Column(type="customer_email", unique=true)
      */
     private Email $email;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Domain\Account\Account",
-     *     mappedBy="customer")
+     *     mappedBy="customer", cascade={"persist", "remove"})
      */
-    private ArrayCollection $accounts;
+    private Collection $accounts;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="customer_status", nullable=false)
      */
     private Status $status;
 
@@ -126,7 +127,7 @@ final class Customer implements JsonSerializable
 
     public function createNewAccount(): void
     {
-        $account = new Account();
+        $account = new Account($this);
         $this->accounts->add($account);
     }
 

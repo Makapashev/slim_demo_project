@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Application\Commands\HashPasswordCommand;
+use App\Application\Commands\LoadFixturesCommand;
+use App\Infrastructure\Services\Hasher;
 use DI\ContainerBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -28,6 +32,16 @@ $dependencies = [
 
         return $logger;
     },
+    HashPasswordCommand::class => function (ContainerInterface $c) {
+        return new HashPasswordCommand(new Hasher());
+    },
+    LoadFixturesCommand::class => function (ContainerInterface $c) {
+        $settings = $c->get('settings');
+        return new LoadFixturesCommand(
+            $c->get(EntityManagerInterface::class),
+            $settings['fixture_paths']
+        );
+    }
 ];
 
 return fn(ContainerBuilder $containerBuilder) => $containerBuilder

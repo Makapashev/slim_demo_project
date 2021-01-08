@@ -1,6 +1,7 @@
-init: down-clear-dev docker-pull docker-build up-dev docker-logs
+init: down-clear-dev docker-pull docker-build up-dev api-init
 restart: down-dev up-dev
 create-migrations: validate-entities dev-create-migrations
+api-init: composer-install migrate fixtures
 
 up-dev:
 	docker-compose up -d
@@ -26,3 +27,5 @@ composer-install:
 	docker container exec -it demo_bank1_cli composer install
 php-cli:
 	docker container exec -it demo_bank1_cli sh
+fixtures:
+	docker container exec -it demo_bank1_cli php slim app:fixtures-load

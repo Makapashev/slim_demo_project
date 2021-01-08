@@ -53,8 +53,9 @@ final class Account
      * */
     private DateTime $updatedAt;
 
-    public function __construct()
+    public function __construct(Customer $customer)
     {
+        $this->customer = $customer;
         $this->balance = Balance::init();
         $this->status = Status::wait();
     }

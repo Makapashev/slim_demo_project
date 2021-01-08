@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\DoctrineTypes\Account;
 
-use App\Domain\Customer\Status;
+use App\Domain\Account\Status;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 

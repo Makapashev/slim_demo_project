@@ -19,8 +19,11 @@ return function (ContainerBuilder $containerBuilder) {
                 'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                 'level' => Logger::DEBUG,
             ],
+            'fixture_paths' => [
+                __DIR__ . '/../src/Infrastructure/Fixtures'
+            ],
             'doctrine' => [
-                'dev_mode' => true,
+                'dev_mode' => (bool)getenv('IS_DEV'),
                 'cache_dir' => __DIR__ . '/../var/cache/doctrine/cache',
                 'proxy_dir' => __DIR__ . '/../var/cache/doctrine/proxy',
                 'connection' => [
